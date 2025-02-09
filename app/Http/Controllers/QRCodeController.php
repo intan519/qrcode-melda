@@ -1,30 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QRCodeController extends Controller
 {
     public function index()
     {
-        return view('welcome');
-    }
+        $text = 'hai'; // URL untuk QR Code
+        $fileName = 'qrcodes/' . md5($text) . '.png';
 
-    public function generateQrCode(Request $request)
-    {
-        $text = $request->input('qr-code'); 
-        $size = $request->input('qr-size', 100); 
-    
-        // Generate QR Code
-        $qrCode = QrCode::size($size)->generate($text);
-    
-        return back()->with([
-            'qr-code' => $qrCode,
-            'text' => $text,
-            'qr-size' => $size,
-        ]);
+        // Cek apakah QR Code sudah ada
+        if (!Storage::disk('public')->exists($fileName)) {
+            // Generate QR Code dengan GD Library
+            $qrCode = QrCode::format('png')->size(200)->generate($text);
+
+            // Simpan QR Code di storage
+            Storage::disk('public')->put($fileName, $qrCode);
+        }
+
+        // Ambil URL QR Code dari storage
+        $qrCodeUrl = asset('storage/' . $fileName);
+
+        return view('welcome', compact('qrCodeUrl'));
     }
 }
+

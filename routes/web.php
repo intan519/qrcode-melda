@@ -16,12 +16,10 @@ use App\Http\Controllers\QRCodeController;
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::controller(QRCodeController::class)->group(function () {
-    Route::get('/qrcode', [QRCodeController::class, 'index']);
-    Route::post('generate-qr-code', 'generateQrCode')->name('generate-qr-code');
-});
+Route::get('/', [QRCodeController::class, 'index']);
+
 
