@@ -73,7 +73,7 @@ Buka di browser: [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## 🖼 Screenshot
 
-![preview](https://github.com/user-attachments/assets/b6f68083-eb27-4b95-85da-34d14618a1b8)
+![preview-melda](https://github.com/user-attachments/assets/f955f9e6-f6ac-436c-8cd3-cc7e9ab614f0)
 
 ---
 
